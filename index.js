@@ -2,7 +2,7 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const SQUARES_PER_ROW = 12;
 const CANVAS_MARGIN = 50;
-ctx.lineWidth = 1;
+ctx.lineWidth = 0.75;
 ctx.strokeStyle = "black";
 const { width, height } = canvas;
 const squareSize = Math.floor((width - CANVAS_MARGIN * 2) / SQUARES_PER_ROW);
@@ -26,8 +26,8 @@ function schotter() {
   for (let row = 0; row < numRows; row += 1) {
     for (let col = 0; col < SQUARES_PER_ROW; col += 1) {
       let rotationDirection = Math.random() < 0.5 ? 1 : -1;
-      let xDisplacement = Math.random() * row;
-      let yDisplacement = Math.random() * row;
+      let xDisplacement = Math.random() * row * 1.2;
+      let yDisplacement = Math.random() * row * 1.2;
       drawSquare(
         CANVAS_MARGIN + col * squareSize + xDisplacement,
         CANVAS_MARGIN + row * squareSize + yDisplacement,
