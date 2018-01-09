@@ -1,16 +1,19 @@
 import schotter from "./schotter";
 import randomPolygon from "./randomPolygon";
+import gridDistortion from "./gridDistortion";
 
 const dispatcher = {
   schotter,
-  randomPolygon
+  randomPolygon,
+  gridDistortion
 };
 
 const references = {
   schotter:
     "http://collections.vam.ac.uk/item/O221321/schotter-print-nees-georg/",
   randomPolygon:
-    "http://collections.vam.ac.uk/item/O239558/random-polygons-photograph-nake-frieder/"
+    "http://collections.vam.ac.uk/item/O239558/random-polygons-photograph-nake-frieder/",
+  gridDistortion: ""
 };
 
 const select = document.querySelector("select");

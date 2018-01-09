@@ -1,15 +1,7 @@
+import gaussianRandom from "./gaussianRandom";
+
 const CANVAS_DIMENSION = 700;
 const NUM_VERTICES = 100;
-
-// repeatedly sample a uniform distribution to get something gaussian
-// https://stackoverflow.com/a/39187274
-function gaussianRandom(samples = 6) {
-  let rand = 0;
-  for (let i = 0; i < samples; i += 1) {
-    rand += Math.random();
-  }
-  return rand / samples;
-}
 
 function buildVertices() {
   const vertices = [];
