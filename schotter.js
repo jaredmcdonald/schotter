@@ -48,4 +48,6 @@ export default function() {
   }
 
   schotter();
+
+  return { teardown() {} }; // noop, for now
 }

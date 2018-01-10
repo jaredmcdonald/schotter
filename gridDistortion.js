@@ -4,15 +4,18 @@ import { createGrid, distortGrid } from "./grid";
 const CANVAS_DIMENSION = 1000;
 const DISTORTION_FACTOR = 1.1;
 const LINES_PER_DIMENSION = 300;
+const FPS = 60;
 
-export default function() {
+let intervalHandle = null;
+
+export default function gridDistortion() {
   const canvas = document.querySelector("canvas");
   canvas.width = CANVAS_DIMENSION;
   canvas.height = CANVAS_DIMENSION;
 
   const ctx = canvas.getContext("2d");
 
-  const grid = distortGrid(
+  let grid = distortGrid(
     createGrid(
       CANVAS_DIMENSION,
       CANVAS_DIMENSION,
@@ -25,11 +28,17 @@ export default function() {
   ctx.clearRect(0, 0, CANVAS_DIMENSION, CANVAS_DIMENSION);
   drawGrid(ctx, grid);
 
-  // setInterval(() => {
-  //   grid = distortGrid(grid, DISTORTION_FACTOR, gaussianRandom);
-  //   ctx.clearRect(0, 0, CANVAS_DIMENSION, CANVAS_DIMENSION);
-  //   drawGrid(ctx, grid);
-  // }, 1000 / 60);
+  intervalHandle = setInterval(() => {
+    grid = distortGrid(grid, DISTORTION_FACTOR, gaussianRandom);
+    ctx.clearRect(0, 0, CANVAS_DIMENSION, CANVAS_DIMENSION);
+    drawGrid(ctx, grid);
+  }, 1000 / FPS);
+
+  return {
+    teardown() {
+      clearInterval(intervalHandle);
+    }
+  };
 }
 
 function drawPathThrough(ctx, [firstPoint, ...restPoints]) {

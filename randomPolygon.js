@@ -14,7 +14,7 @@ function buildVertices() {
   return vertices;
 }
 
-export default function() {
+export default function randomPolygon() {
   const canvas = document.querySelector("canvas");
   canvas.width = CANVAS_DIMENSION;
   canvas.height = CANVAS_DIMENSION;
@@ -35,4 +35,6 @@ export default function() {
   }
   ctx.lineTo(initialX, initialY);
   ctx.stroke();
+
+  return { teardown() {} }; // noop, for now
 }
