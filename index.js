@@ -18,39 +18,25 @@ const dispatcher = {
 //   gridDistortion: ""
 // };
 
-// const select = document.querySelector("select");
-
-// let teardownFn = () => {};
-function draw() {
-  teardownFn(); // teardown previous
-  setupDispatcher[select.value]();
-}
 //
 // function updateReference() {
 //   document.querySelector("#controls a").href = references[select.value];
 // }
-
-// document.querySelector("button").addEventListener("click", () => {
-//   draw();
-// });
-//
-// updateTeardown();
-// updateReference();
-// draw();
 
 class Controls extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selected: "gridDistortion",
-      teardown: () => {}
+      teardown: () => {},
+      UI: null
     };
   }
 
   drawSelectionToCanvas() {
     this.state.teardown();
-    const { teardown } = dispatcher[this.state.selected]();
-    this.setState({ teardown });
+    const { teardown, UI } = dispatcher[this.state.selected]();
+    this.setState({ teardown, UI });
   }
 
   componentDidMount() {
@@ -58,6 +44,7 @@ class Controls extends Component {
   }
 
   render() {
+    const { UI } = this.state;
     return [
       <select
         onChange={({ target }) => {
@@ -73,10 +60,11 @@ class Controls extends Component {
           </option>
         ))}
       </select>,
-      <button>regenerate</button>,
+      <button onClick={() => this.drawSelectionToCanvas()}>regenerate</button>,
       <a href="#" target="_blank">
         ?
-      </a>
+      </a>,
+      UI && <UI />
     ];
   }
 }

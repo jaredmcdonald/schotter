@@ -1,12 +1,13 @@
+import React from "react";
 import gaussianRandom from "./gaussianRandom";
 import { createGrid, distortGrid } from "./grid";
 
 const CANVAS_DIMENSION = 1000;
 const DISTORTION_FACTOR = 1.1;
 const LINES_PER_DIMENSION = 300;
-const FPS = 60;
+const DEFAULT_FPS = 60;
 
-let intervalHandle = null;
+let fps = DEFAULT_FPS;
 
 export default function gridDistortion() {
   const canvas = document.querySelector("canvas");
@@ -28,15 +29,37 @@ export default function gridDistortion() {
   ctx.clearRect(0, 0, CANVAS_DIMENSION, CANVAS_DIMENSION);
   drawGrid(ctx, grid);
 
-  intervalHandle = setInterval(() => {
+  let intervalHandle = setInterval(() => {
     grid = distortGrid(grid, DISTORTION_FACTOR, gaussianRandom);
     ctx.clearRect(0, 0, CANVAS_DIMENSION, CANVAS_DIMENSION);
     drawGrid(ctx, grid);
-  }, 1000 / FPS);
+  }, 1000 / DEFAULT_FPS);
+
+  function teardown() {
+    clearInterval(intervalHandle);
+  }
 
   return {
-    teardown() {
-      clearInterval(intervalHandle);
+    teardown,
+    UI() {
+      return (
+        <div>
+          <label>
+            <span>FPS</span>
+            <input
+              type="number"
+              defaultValue={DEFAULT_FPS}
+              onChange={({ target }) => {
+                const parsed = parseFloat(target.value);
+                if (!parsed) return; // zero or NaN
+                fps = parsed;
+                teardown();
+                gridDistortion();
+              }}
+            />
+          </label>
+        </div>
+      );
     }
   };
 }

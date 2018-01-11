@@ -36,5 +36,5 @@ export default function randomPolygon() {
   ctx.lineTo(initialX, initialY);
   ctx.stroke();
 
-  return { teardown() {} }; // noop, for now
+  return { teardown() {}, UI: null }; // noop, for now
 }
