@@ -3,46 +3,20 @@ import React, { Component } from "react";
 import schotter from "./schotter";
 import randomPolygon from "./randomPolygon";
 import gridDistortion from "./gridDistortion";
+import nestedSquares from "./nestedSquares";
 
 const dispatcher = {
   schotter,
   randomPolygon,
-  gridDistortion
+  gridDistortion,
+  nestedSquares
 };
-//
-// const references = {
-//   schotter:
-//     "http://collections.vam.ac.uk/item/O221321/schotter-print-nees-georg/",
-//   randomPolygon:
-//     "http://collections.vam.ac.uk/item/O239558/random-polygons-photograph-nake-frieder/",
-//   gridDistortion: ""
-// };
-
-// const select = document.querySelector("select");
-
-// let teardownFn = () => {};
-function draw() {
-  teardownFn(); // teardown previous
-  setupDispatcher[select.value]();
-}
-//
-// function updateReference() {
-//   document.querySelector("#controls a").href = references[select.value];
-// }
-
-// document.querySelector("button").addEventListener("click", () => {
-//   draw();
-// });
-//
-// updateTeardown();
-// updateReference();
-// draw();
 
 class Controls extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: "gridDistortion",
+      selected: "nestedSquares",
       teardown: () => {}
     };
   }
@@ -73,7 +47,7 @@ class Controls extends Component {
           </option>
         ))}
       </select>,
-      <button>regenerate</button>,
+      <button onClick={() => this.drawSelectionToCanvas()}>regenerate</button>,
       <a href="#" target="_blank">
         ?
       </a>
