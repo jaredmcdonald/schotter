@@ -26,7 +26,7 @@ export default function nestedSquares() {
   const interval = setInterval(() => {
     ctx.clearRect(0, 0, CANVAS_DIMENSION, CANVAS_DIMENSION);
     drawSquaresIntoGrid(grid, ctx);
-  }, 250);
+  }, 100);
 
   return {
     teardown() {
