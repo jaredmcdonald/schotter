@@ -47,10 +47,7 @@ class Controls extends Component {
           </option>
         ))}
       </select>,
-      <button onClick={() => this.drawSelectionToCanvas()}>regenerate</button>,
-      <a href="#" target="_blank">
-        ?
-      </a>
+      <button onClick={() => this.drawSelectionToCanvas()}>regenerate</button>
     ];
   }
 }
