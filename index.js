@@ -16,7 +16,7 @@ class Controls extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: "nestedSquares",
+      selected: "schotter",
       teardown: () => {}
     };
   }
